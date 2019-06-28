@@ -40,7 +40,8 @@ router.post("/register", (req, res) => {
     res.status(201).send({ token });
 
   }).catch(error => {
-    res.status(400).send("[register] Invalid token");
+    console.log(error);
+    res.status(400).send("[Register] Could not create token");
   });
 
   console.log("Register...");

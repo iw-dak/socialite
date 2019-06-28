@@ -8,8 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-    volumes:
-      - ./SampleCollections:/usr/local/sampleCollections
+    # volumes:
+    #   - ./database:/usr/local/sampleCollections
     working_dir: /usr/local/sampleCollections
 
   mongo-express:
@@ -27,11 +27,11 @@ services:
     environment:
       MONGODB_USER: "root"
       MONGODB_PASS: "password"
-      MONGODB_DBNAME: "SampleCollections"
+      MONGODB_DBNAME: "Socialite"
       JWT_SECRET: "MyBestSecret"
     command: 'npm start'
     ports:
-      - 127.0.0.1:3000:3000
+      - 127.0.0.1:4000:3000
   client:
     build: './docker/client'
     volumes:
@@ -39,4 +39,4 @@ services:
     working_dir: '/home/node/app'
     command: 'yarn start'
     ports:
-      - 127.0.0.1:3001:3000
+      - 127.0.0.1:5000:3000
