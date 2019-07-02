@@ -7,3 +7,6 @@
 ## URLs
 - Socialite App `http://localhost:5000`
 - API `http://localhost:4000`
+
+## Useful links
+- To add package `docker-compose run client yarn add <package-name>`

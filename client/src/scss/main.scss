@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i,800|Roboto:400,400i,700,700i,900,900i&display=swap');
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import './_variables.scss';
+
+@import 'globals.scss';
