@@ -3,8 +3,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
-    firstname: String,
-    lastname: String,
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
+    username: { type: String, required: false },
+    bio: { type: String, required: false },
+    image: { type: String, required: false },
     email: {
         type: String,
         trim: true,
@@ -17,10 +20,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    dob: Date,
-    termsAccepted: Boolean,
-    termsAcceptedDate: Date
-});
+    phone: { type: String, required: false },
+    address: { type: String, required: false },
+    birthdate: { type: Date, required: false },
+    termsAccepted: { type: Boolean, required: true },
+    termsAcceptedDate: { type: Date, required: true },
+    tweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+}, { timestamps: true });
 
 UserSchema.pre('save', function (next) {
     bcrypt.genSalt(10).then(salt => {
@@ -37,6 +46,10 @@ UserSchema.methods = {
         return this.save();
     }
 }
+
+UserSchema.virtual('fullname').get(function () {
+    return this.firstname + ' ' + this.lastname;
+})
 
 UserSchema.statics = {
     login: function (email, password) {

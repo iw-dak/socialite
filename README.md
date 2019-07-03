@@ -1,17 +1,16 @@
 ## Installation
 
-Run mongo
+- Run mongo `docker-compose up -d mongo`
+- Run server `docker-compose up server`
+- Run client `docker-compose up client`
+- [Tips] To quick run `make run`
 
-```
-docker-compose up -d mongo
-```
+## URLs
 
-Run server
+- Socialite App `http://localhost:5000`
+- API `http://localhost:4000`
 
-```
-docker-compose up server
-```
+## Useful links
 
-```
-docker-compose up client
-```
+- To add package `docker-compose run client yarn add <package-name>`
+- Type checking with [propTypes](https://fr.reactjs.org/docs/typechecking-with-proptypes.html)
