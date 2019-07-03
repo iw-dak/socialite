@@ -1,6 +1,6 @@
 import React from 'react';
 import './Sidebar.scss';
-import MenutItem from '../MenuItem/MenuItem';
+import MenutItem from './MenuItem/MenuItem';
 import news from "./icons/news.svg";
 import messages from "./icons/messages.svg";
 import notifications from "./icons/notifications.svg";

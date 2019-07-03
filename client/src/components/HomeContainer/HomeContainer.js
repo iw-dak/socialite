@@ -1,8 +1,8 @@
 import React from 'react';
-import Feed from '../Feed/Feed';
-import TweetBox from '../TweetBox/TweetBox';
-import FeedUser from '../FeedUser/FeedUser';
-import SearchBox from '../SearchBox/SearchBox';
+import Feed from './Feed/Feed';
+import TweetBox from './TweetBox/TweetBox';
+import FeedUser from './FeedUser/FeedUser';
+import SearchBox from './SearchBox/SearchBox';
 import './HomeContainer.scss';
 
 const HomeContainer = () => <>
