@@ -15,7 +15,7 @@ const Sidebar = () => {
   return <>
     <div className="Sidebar">
       <div className="UserProfil mt-2">
-        <img className="rounded-circle" src="https://via.placeholder.com/70" alt="User Profil" />
+        <img className="rounded-circle" src="https://lorempixel.com/570/400?t=1563270dd49782389" alt="User Profil" />
       </div>
 
       <div className="MenuItems mt-4 w-100">

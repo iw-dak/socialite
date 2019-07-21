@@ -1,0 +1,65 @@
+$color: #878484;
+
+.FeedUser {
+    background: white;
+    padding: 20px;
+
+    .line {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        .description {
+            color: $color;
+            font-weight: bold;
+        }
+
+        .descriptionCount {
+            font-weight: bold;
+        }
+
+        &.second {
+            flex-direction: row;
+            justify-content: space-between;
+
+            >div {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &.third {
+            margin-top: -40px;
+
+            >div {
+                display: flex;
+                flex-direction: column;
+            }
+
+            img {
+                width: 105px;
+                height: 105px;
+            }
+        }
+
+        &.four {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin-top: 20px;
+
+            button {
+                background: white;
+                border: 1px solid $color;
+                color: $color;
+                border-radius: 20px;
+
+                &:hover, &:focus {
+                  outline: none;
+                }
+            }
+        }
+    }
+}

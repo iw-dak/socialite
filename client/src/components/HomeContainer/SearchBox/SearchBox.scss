@@ -1,0 +1,36 @@
+.SearchBox {
+    .Wrapper {
+        width: 300px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        width: 100%;
+
+        input {
+            width: 100%;
+            padding: 5px 15px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 5px;
+
+            &:focus {
+                outline: none;
+                border: none;
+            }
+        }
+
+    }
+
+    .SearchIcon {
+        width: 50px;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        background: none;
+    }
+}
