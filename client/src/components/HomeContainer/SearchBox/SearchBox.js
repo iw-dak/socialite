@@ -10,7 +10,7 @@ class SearchBox extends Component {
 
   render() {
     return (
-      <div className="SearchBox rounded">
+      <div className="SearchBox rounded sticky-top">
         <div className="Wrapper">
           <form onSubmit={this.handleSubmit}>
             <input type="text" placeholder="Faire une recherche&hellip;" />

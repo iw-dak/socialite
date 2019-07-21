@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { AuthStore } from '../../helpers';
 import { Redirect, Link } from "react-router-dom";
-import './Login.scss';
+import './Register.scss';
 
-class Login extends Component {
+class Register extends Component {
 
   handleForm = (e) => {
     e.preventDefault();
@@ -20,23 +20,39 @@ class Login extends Component {
     }
 
     return (
-      <div className="Login container">
+      <div className="Register container">
         <div className="row">
           <div className="col-12">
 
-            <form onSubmit={this.handleForm} className="LoginForm">
+            <form onSubmit={this.handleForm} className="RegisterForm">
               <Link to="/account/feeds">
                 <img src={logo} alt="Socialite Logo" className="logo" />
               </Link>
 
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title text-center">On se connait déjà ?</h5>
+                  <h5 className="card-title text-center">Rejoins-nous !</h5>
                   <h6 className="card-subtitle mb-2 text-muted text-center">
-                    <Link to="/auth/register">Non ? Faisons connaissance !</Link>
+                    <Link to="/auth/register">Tu as déjà un compte ?</Link>
                   </h6>
 
                   <div className="card-text">
+                    <div className="form-group">
+                      <label htmlFor="firstname">Prénom</label>
+                      <div className="field-group">
+                        <input type="text" className="form-control" id="firstname" aria-describedby="firstnameHelp" placeholder="Entrez votre prénom" />
+                        <img className="image" src={emailIcon} alt="Prénom" />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="lastname">Prénom</label>
+                      <div className="field-group">
+                        <input type="text" className="form-control" id="lastname" aria-describedby="lastnameHelp" placeholder="Entrez votre nom de famille" />
+                        <img className="image" src={emailIcon} alt="Nom de famille" />
+                      </div>
+                    </div>
+
                     <div className="form-group">
                       <label htmlFor="email">Adresse e-mail</label>
                       <div className="field-group">
@@ -52,11 +68,19 @@ class Login extends Component {
                         <img className="image image-password" src={passwordIcon} alt="Mot de passe" />
                       </div>
                     </div>
+
+                    <div className="form-group">
+                      <label htmlFor="passwordConfirmation">Confirmation du mot de passe</label>
+                      <div className="field-group">
+                        <input type="password" className="form-control" id="passwordConfirmation" aria-describedby="emailHelp" placeholder="Entrez à nouveau votre mot de passe" />
+                        <img className="image image-password" src={passwordIcon} alt="Mot de passe" />
+                      </div>
+                    </div>
+
                   </div>
 
                   <div className="button-row">
-                    <button type="submit" className="btn btn-primary">C'est parti !</button>
-                    <a href="/forget-password" className="card-link mt-2">Identifiants oubliés ?</a>
+                    <button type="submit" className="btn btn-primary">Je me lance</button>
                   </div>
                 </div>
               </div>
@@ -68,4 +92,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;
