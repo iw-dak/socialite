@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './SearchBox.scss';
+import searchIcon from './icons/search-icon.svg';
 
-const Search = () => <>
-  Search
-</>
+class SearchBox extends Component {
 
-export default Search;
+  handleSubmit = () => {
+    console.log("HandleSubmit");
+  }
+
+  render() {
+    return (
+      <div className="SearchBox rounded">
+        <div className="Wrapper">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Faire une recherche&hellip;" />
+          </form>
+          <button className="SearchIcon" type="submit">
+              <span >
+                <img src={searchIcon} alt=""/>
+              </span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default SearchBox;

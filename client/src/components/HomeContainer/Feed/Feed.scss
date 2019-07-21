@@ -1,0 +1,77 @@
+.Feed {
+    background: white;
+    display: flex;
+
+    .UserProfil {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        margin: 20px 10px;
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .UserName {
+            margin-top: 5px;
+            text-align: center;
+        }
+    }
+
+    .ContentWrapper {
+        padding-left: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        margin: 8px 10px;
+
+        .UserName {
+            color: #6A6A6A;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+
+    .FeedMetas {
+        margin-top: auto;
+        width: 150px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .FeedMeta {
+            display: flex;
+
+            img {
+                height: 1.2em;
+                margin-right: 5px;
+            }
+
+            &.likes {
+                img {
+                    height: 1.4em;
+                }
+            }
+        }
+    }
+
+    .FeedContent {
+        color: #878484;
+    }
+
+    .FeedHeader {
+        display: flex;
+        justify-content: space-between;
+
+        .FeedTime {
+            color: #000;
+        }
+    }
+
+    .FeedCount {
+        color: #878484;
+    }
+}

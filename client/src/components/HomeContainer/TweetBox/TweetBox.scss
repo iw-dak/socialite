@@ -1,0 +1,47 @@
+.TweetBox {
+    background: white;
+    padding: 5px 10px;
+
+    .Wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .UserProfil {
+            margin-right: 20px;
+
+            img {
+                height: 60px;
+                width: 60px;
+            }
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            input {
+                width: 100%;
+                padding: 5px 15px;
+                margin: 0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                border-width: 1px;
+                outline: none;
+                border-color: white;
+                border: 1px solid #D6D4D4;
+                transition: border .3s ease-in-out;
+
+                &::placeholder {
+                    color: #D6D4D4;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
