@@ -5,8 +5,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: $so-main-color;
+    background: linear-gradient(180deg, #17191b 1.7%, #36393e 100%);
+    background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    min-height: 100vh;
 }
 
 code {

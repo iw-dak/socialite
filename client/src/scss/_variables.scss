@@ -1,2 +1,8 @@
 $so-main-color: #36393E;
 $so-sidebar-color: #292C30;
+
+// bootstrap overrides
+$link-color: #878484 !default;
+$primary: $so-main-color !default;
+// $blue: #878484 !default;
+$enable-rounded: true !default;
