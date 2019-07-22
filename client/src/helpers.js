@@ -46,8 +46,15 @@ export const AuthStore = {
     });
   },
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    return new Promise((resolve, reject) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      if (!localStorage.getItem('token') && !localStorage.getItem('user')) {
+        resolve()
+      } else {
+        reject();
+      }
+    });
   },
   isAuthenticated() {
     return (localStorage.getItem('token') && localStorage.getItem('user'));

@@ -4,6 +4,7 @@
 - Run server `docker-compose up server`
 - Run client `docker-compose up client`
 - [Tips] To quick run `make run`
+- To seed database send `POST` request to `http://localhost:400/seeds`
 
 ## URLs
 
