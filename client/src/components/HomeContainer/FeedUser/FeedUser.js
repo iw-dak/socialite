@@ -4,7 +4,7 @@ import './FeedUser.scss';
 class FeedUser extends Component {
   render() {
     return (
-      <div className="FeedUser">
+      <div className="FeedUser rounded">
         <div className="line">
           <span className="description">Abonnements</span>
           <span className="descriptionCount">104</span>

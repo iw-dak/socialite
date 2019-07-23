@@ -6,20 +6,23 @@ import Register from './pages/Register/Register';
 import { PrivateRoute } from './helpers';
 import UserProvider from './context/users/UserProvider';
 import Logout from './components/Logout/Logout';
+import TweetProvider from './context/tweets/TweetProvider';
 
 const App = () => <>
   <UserProvider>
-    <Router>
-      <Switch>
-        <Route path="/auth/login" component={Login} />
-        <Route path="/auth/register" component={Register} />
-        <PrivateRoute path="/account/feeds" component={Home} />
-        <PrivateRoute path="/account/profil" component={Home} />
-        <PrivateRoute path="/logout" component={Logout} />
-        <Route path="/auth/register" component={Register} />
-        <Route exact path="/" render={() => <Redirect to="/auth/login" />} />
-      </Switch>
-    </Router>
+    <TweetProvider>
+      <Router>
+        <Switch>
+          <Route path="/auth/login" component={Login} />
+          <Route path="/auth/register" component={Register} />
+          <PrivateRoute path="/account/feeds" component={Home} />
+          <PrivateRoute path="/account/profil" component={Home} />
+          <PrivateRoute path="/logout" component={Logout} />
+          <Route path="/auth/register" component={Register} />
+          <Route exact path="/" render={() => <Redirect to="/auth/login" />} />
+        </Switch>
+      </Router>
+    </TweetProvider>
   </UserProvider>
 </>;
 

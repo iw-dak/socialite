@@ -4,12 +4,12 @@ const User = require("../models/user");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  User.find(req.query).then(data => res.json(data));
+  User.find(req.query).populate('tweets').then(data => res.json(data));
 });
 
 // user/1
 router.get("/:id", (req, res) => {
-  User.findOne({ _id: req.params.id })
+  User.findOne({ _id: req.params.id }).populate('tweets')
     .then(data => res.json(data))
     .catch(error => {
       console.log(error);

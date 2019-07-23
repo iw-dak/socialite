@@ -62,5 +62,26 @@ export const AuthStore = {
   getUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
-
 };
+
+export function formatDate(date) {
+  date = (new Date(date)); // toLocaleString('fr-FR')
+
+  var monthNames = [
+    "Janvier", "Février", "Mars",
+    "Avril", "Mai", "Juin", "Juillet",
+    "Août", "Septembre", "Octobre",
+    "Novembre", "Décembre"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+export function formatHours(date) {
+  date = (new Date(date)); // toLocaleString('fr-FR')
+  return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}

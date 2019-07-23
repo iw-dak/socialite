@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const createToken = (user = {}) => {
   return jwt.sign(
     {
-      firstName: user.firstName
+      firstName: user.firstName,
+      email: user.email
     },
     process.env.JWT_SECRET,
     {
@@ -16,6 +17,7 @@ const createToken = (user = {}) => {
 const verifyToken = token => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      console.log("decodedToken", decodedToken)
       if (err || !decodedToken) {
         reject(err);
       } else {
@@ -26,6 +28,6 @@ const verifyToken = token => {
 };
 
 module.exports = {
-    createToken,
-    verifyToken
+  createToken,
+  verifyToken
 }

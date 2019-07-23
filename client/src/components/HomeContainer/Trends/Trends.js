@@ -4,7 +4,7 @@ import './Trends.scss';
 class Trends extends Component {
   render() {
     return (
-      <div className="Trends mt-4">
+      <div className="Trends mt-4 rounded">
         <div className="hashtag">#PouletRoti</div>
         <div className="hashtag">#USAForEVER</div>
         <div className="hashtag">#NoPainNoGain</div>
