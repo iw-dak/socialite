@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Feed.scss';
 import comment from "./icons/comment.svg";
 import retweet from "./icons/retweet.svg";
 import like from "./icons/like.svg";
+import likeFilled from "./icons/like-filled.svg";
 import { formatDate, formatHours } from '../../../helpers';
+import TweetContext from '../../../context/tweets/TweetContext';
 
-const Feed = ({ feed }) => <>
-  <div className="Feed rounded mb-2">
+const Feed = ({ feed, updateLikes }) => {
+
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(feed.likes.length);
+
+  function handleLike(e) {
+    e.preventDefault();
+    updateLikes(feed._id).then(data => {
+      setLiked(data.status);
+      setLikeCount(data.tweet.likes.length)
+    }).catch(error => {
+      alert("Impossible d'aimer");
+    });
+  }
+
+  return <div className="Feed rounded mb-2">
     <div className="UserProfil mt-2">
       <img className="rounded-circle" src="https://lorempixel.com/570/400?t=15632704787897823" alt="User Profil" />
-      <span className="UserName">@dachic</span>
+      <span className="UserName">{feed.user.username}</span>
     </div>
 
     <div className="ContentWrapper">
       <div className="FeedHeader">
         <span className="UserName">
-          Adam Malick
-            </span>
+          {feed.user.firstname} {feed.user.lastname}
+        </span>
 
         <span className="FeedTime">{formatDate(feed.createdAt)} à {formatHours(feed.createdAt)}</span>
       </div>
@@ -35,12 +51,21 @@ const Feed = ({ feed }) => <>
         </div>
 
         <div className="FeedMeta likes">
-          <a href="#like"><img src={like} alt="Liker" title="Liker" /></a>
-          <span className="FeedCount LikeCount">{feed.likes.length}</span>
+          <a href="#like" onClick={handleLike}><img src={liked ? likeFilled : like} alt="Aimer" title="Aimer" /></a>
+          <span className="FeedCount LikeCount">{likeCount}</span>
         </div>
       </div>
     </div>
   </div>
-</>
+}
 
-export default Feed;
+export default React.forwardRef((props, ref) => (
+  <TweetContext.Consumer>
+    {({ updateLikes }) => <Feed
+      {...props}
+      updateLikes={updateLikes}
+      ref={ref}
+    />
+    }
+  </TweetContext.Consumer>
+));

@@ -8,6 +8,38 @@ router.get('/', (req, res) => {
   Tweet.find(req.query).sort({ createdAt: 'desc' }).populate('user').then(data => res.json(data))
 });
 
+// user/tweets/update-likes
+router.patch("/update-likes", (req, res) => {
+  Tweet.findById(req.body.tweetId).then((tweet) => {
+    if (tweet) {
+      User.findOne({ email: req.user.email }).then((user) => {
+        var isInArray = tweet.likes.some(function (like) {
+          return like.equals(user._id);
+        });
+        console.log("isInArray ==>", isInArray);
+
+        if (!isInArray) {
+          tweet.likes.push(user);
+          res.status(200).json({ status: true, tweet: tweet });
+          tweet.save();
+        } else {
+          tweet.likes.pull(user);
+          tweet.save();
+          res.status(200).json({ status: false, tweet: tweet });
+        }
+      }).catch(error => {
+        console.log("Search User", error);
+        res.sendStatus(500);
+      });
+    } else {
+      res.sendStatus(500).send('Tweet not found');
+    }
+  }).catch(error => {
+    console.log("Search Tweet", error);
+    res.sendStatus(500);
+  })
+});
+
 router.post('/', (req, res) => {
   User.findOne({ email: req.user.email }).then((user) => {
     const tweet = new Tweet({

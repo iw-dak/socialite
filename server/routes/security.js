@@ -9,7 +9,6 @@ const router = express.Router();
 router.post("/login", (req, res) => {
   User.login(req.body.email, req.body.password)
     .then(user => {
-      console.log("Ici ==> ", user);
       const token = createToken({
         firstName: user.firstname,
         email: user.email

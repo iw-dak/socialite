@@ -26,10 +26,7 @@ class HomeContainer extends Component {
     });
   }
   render() {
-
-    if (this.state.feeds.length === 0) {
-      return <p>Chargement&hellip;</p>
-    }
+    console.log(this.state.feeds);
 
     return (
       <div className="HomeContainer">
@@ -47,7 +44,8 @@ class HomeContainer extends Component {
             <div className="col-9 TweetBoxWrapper">
               <TweetBox />
               <hr />
-              {this.state.feeds.map((feed, index) => <Feed key={index} feed={feed} />)}
+              {(this.state.feeds.length > 0) &&
+                this.state.feeds.map((feed, index) => <Feed key={index} feed={feed} />)}
             </div>
 
             <div className="col-3">
