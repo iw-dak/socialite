@@ -4,13 +4,14 @@ import comment from "./icons/comment.svg";
 import retweet from "./icons/retweet.svg";
 import like from "./icons/like.svg";
 import likeFilled from "./icons/like-filled.svg";
-import { formatDate, formatHours } from '../../../helpers';
+import { formatDate, formatHours, AuthStore } from '../../../helpers';
 import TweetContext from '../../../context/tweets/TweetContext';
 import Comment from './Comment/Comment';
 
 const Feed = ({ feed, updateLikes }) => {
+  const autUser = AuthStore.getUser();
 
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(feed.likes.indexOf(autUser._id) !== -1);
   const [currentFeed, setCurrentFeed] = useState(feed);
   const [likeCount, setLikeCount] = useState(feed.likes.length);
 
@@ -26,6 +27,8 @@ const Feed = ({ feed, updateLikes }) => {
 
   const updateFeed = (feed) => {
     setCurrentFeed(feed);
+    setLikeCount(feed.likes.length);
+    setLikeCount(feed.likes.indexOf(autUser._id) !== -1);
   }
 
   return <div className="Feed rounded mb-2">

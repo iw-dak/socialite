@@ -34,10 +34,12 @@ class TweetBox extends Component {
     this.props.saveTweet(this.state.tweet).then((tweet) => {
       this.setState({
         tweet: ''
-      })
+      });
+
+      console.log("tweet reçu :", tweet);
 
       this.props.onUpdateFeeds(tweet);
-      alert("✅ Votre tweet a été posté");
+      alert("Votre tweet a été posté ✅");
     }).catch(response => {
       console.log("===>", response)
       alert(response.errorMessage);

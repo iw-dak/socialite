@@ -6,6 +6,7 @@ import SearchBox from './SearchBox/SearchBox';
 import Trends from './Trends/Trends';
 import './HomeContainer.scss';
 import TweetContext from '../../context/tweets/TweetContext';
+import { sortBy } from 'lodash';
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -25,12 +26,28 @@ class HomeContainer extends Component {
   }
 
   updateFeeds = (feed) => {
+    console.log(feed);
+    // var dataFeeds = [
+    //   feed,
+    //   ...this.state.feeds
+    // ];
+
+    // console.log(dataFeeds);
+
+    // dataFeeds = dataFeeds.sort((a, b) => {
+    //   return new Date(b.createdAt) - new Date(a.createdAt);
+    // });
+
+    // console.log(dataFeeds);
     this.setState({
       feeds: [
         feed,
         ...this.state.feeds
       ]
     });
+
+    console.log(this.state.feeds);
+
   }
 
   render() {
