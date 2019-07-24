@@ -36,12 +36,9 @@ class TweetBox extends Component {
         tweet: ''
       });
 
-      console.log("tweet reçu :", tweet);
-
       this.props.onUpdateFeeds(tweet);
       alert("Votre tweet a été posté ✅");
     }).catch(response => {
-      console.log("===>", response)
       alert(response.errorMessage);
     });
   }

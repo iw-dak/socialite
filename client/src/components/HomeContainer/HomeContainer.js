@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Feed from './Feed/Feed';
 import TweetBox from './TweetBox/TweetBox';
 import FeedUser from './FeedUser/FeedUser';
-import SearchBox from './SearchBox/SearchBox';
-import Trends from './Trends/Trends';
+// import SearchBox from './SearchBox/SearchBox';
+// import Trends from './Trends/Trends';
 import './HomeContainer.scss';
 import TweetContext from '../../context/tweets/TweetContext';
-import { sortBy } from 'lodash';
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -26,24 +25,18 @@ class HomeContainer extends Component {
   }
 
   updateFeeds = (feed) => {
-    console.log(feed);
     var dataFeeds = [
       feed,
       ...this.state.feeds
     ];
 
-    // console.log(dataFeeds);
-
     dataFeeds = dataFeeds.sort((a, b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
 
-    // console.log(dataFeeds);
     this.setState({
       feeds: dataFeeds
     });
-
-    console.log(this.state.feeds);
 
   }
 
@@ -51,15 +44,15 @@ class HomeContainer extends Component {
     return (
       <div className="HomeContainer">
 
-        <div className="container-fluid pt-4 pb-4">
+        {/* <div className="container-fluid pt-4 pb-4">
           <div className="row">
             <div className="col-9">
               <SearchBox />
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="container-fluid pt-0 pb-4">
+        <div className="container-fluid pt-0 pb-4 pt-4">
           <div className="row">
             <div className="col-9 TweetBoxWrapper">
               <TweetBox onUpdateFeeds={this.updateFeeds} />
@@ -70,7 +63,7 @@ class HomeContainer extends Component {
 
             <div className="col-3">
               <FeedUser />
-              <Trends />
+              {/* <Trends /> */}
             </div>
           </div>
         </div>

@@ -31,42 +31,56 @@ const Feed = ({ feed, updateLikes }) => {
     setLikeCount(feed.likes.indexOf(autUser._id) !== -1);
   }
 
-  return <div className="Feed rounded mb-2">
-    <div className="UserProfil mt-2">
-      <img className="rounded-circle" src={`${currentFeed.user.image}`} alt="User Profil" />
-      <span className="UserName">{currentFeed.user.username}</span>
-    </div>
-
-    <div className="ContentWrapper">
-      <div className="FeedHeader">
-        <span className="UserName">
-          {currentFeed.user.firstname} {currentFeed.user.lastname}
-        </span>
-
-        <span className="FeedTime">{formatDate(currentFeed.createdAt)} à {formatHours(currentFeed.createdAt)}</span>
+  return <>
+    <div className="Feed rounded mb-2">
+      <div className="UserProfil mt-2">
+        <img className="rounded-circle" src={`${currentFeed.user.image}`} alt="User Profil" />
+        <span className="UserName">{currentFeed.user.username}</span>
       </div>
 
-      <div className="FeedContent">{currentFeed.text}</div>
+      <div className="ContentWrapper">
+        <div className="FeedHeader">
+          <span className="UserName">
+            {currentFeed.user.firstname} {currentFeed.user.lastname}
+          </span>
 
-      <div className="FeedMetas">
-        <div className="FeedMeta comments">
-          <a href="#comment" data-toggle="modal" data-target={`#tweetComment-${currentFeed._id}`}><img src={comment} alt="Commenter" title="Commenter" /></a>
-          <span className="FeedCount CommentCount">{currentFeed.comments.length}</span>
-          <Comment feed={currentFeed} onUpdateFeed={updateFeed} />
+          <span className="FeedTime">{formatDate(currentFeed.createdAt)} à {formatHours(currentFeed.createdAt)}</span>
         </div>
 
-        <div className="FeedMeta retweets">
-          <a href="#retweet"><img src={retweet} alt="Retweeter" title="Retweeter" /></a>
-          <span className="FeedCount RetweetCount">{currentFeed.retweeters.length}</span>
-        </div>
+        <div className="FeedContent">{currentFeed.text}</div>
 
-        <div className="FeedMeta likes">
-          <a href="#like" onClick={handleLike}><img src={liked ? likeFilled : like} alt="Aimer" title="Aimer" /></a>
-          <span className="FeedCount LikeCount">{likeCount}</span>
+        <div className="FeedMetas">
+          <div className="FeedMeta comments">
+            <a href="#comment" data-toggle="modal" data-target={`#tweetComment-${currentFeed._id}`}><img src={comment} alt="Commenter" title="Commenter" /></a>
+            <span className="FeedCount CommentCount" data-toggle="collapse" data-target={`#collapse-${currentFeed._id}`} aria-expanded="true" aria-controls="collapseOne">{currentFeed.comments.length}</span>
+            <Comment feed={currentFeed} onUpdateFeed={updateFeed} />
+          </div>
+
+          <div className="FeedMeta retweets">
+            <a href="#retweet"><img src={retweet} alt="Retweeter" title="Retweeter" /></a>
+            <span className="FeedCount RetweetCount">{currentFeed.retweeters.length}</span>
+          </div>
+
+          <div className="FeedMeta likes">
+            <a href="#like" onClick={handleLike}><img src={liked ? likeFilled : like} alt="Aimer" title="Aimer" /></a>
+            <span className="FeedCount LikeCount">{likeCount}</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div id={`accordion-${currentFeed._id}`}>
+      <div className="card mb-2">
+        <div id={`collapse-${currentFeed._id}`} className="collapse" aria-labelledby="headingOne" data-parent={`#accordion-${currentFeed._id}`}>
+          <div className="card-body">
+            {currentFeed.comments.map((comment, index) => <div key={index}>
+              <span>{comment.text}</span>
+            </div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </>
 }
 
 export default React.forwardRef((props, ref) => (

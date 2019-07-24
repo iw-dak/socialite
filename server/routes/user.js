@@ -99,4 +99,16 @@ router.post("/", (req, res) => {
     });
 });
 
+// user/1
+router.get("/fulltext", (req, res) => {
+  User.find({ $text: { $search: req.body.searchString } }).populate('tweets')
+    .skip(20)
+    .limit(10).then(data => res.json(data))
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

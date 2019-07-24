@@ -2,16 +2,16 @@ import React from 'react';
 import './Sidebar.scss';
 import MenutItem from './MenuItem/MenuItem';
 import news from "./icons/news.svg";
-import messages from "./icons/messages.svg";
-import notifications from "./icons/notifications.svg";
+// import messages from "./icons/messages.svg";
+// import notifications from "./icons/notifications.svg";
 import { Link } from "react-router-dom";
 import { AuthStore } from '../../helpers';
 
 const Sidebar = () => {
   const menus = [
     { logo: news, label: "Actualités" },
-    { logo: messages, label: "Messages" },
-    { logo: notifications, label: "Notifications" }
+    // { logo: messages, label: "Messages" },
+    //{ logo: notifications, label: "Notifications" }
   ];
 
   const logout = process.env.REACT_APP_URL + '/icons/logout.svg';
