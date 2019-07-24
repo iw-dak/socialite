@@ -21,7 +21,6 @@ const Comment = ({ feed, postComment, onUpdateFeed }) => {
 
     postComment(feed._id, comment).then(data => {
       onUpdateFeed(data.tweet);
-      alert("Commentaire ajouté avec succès ✅");
       setComment('');
     }).catch(error => {
       console.log(error);
