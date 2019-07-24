@@ -4,12 +4,67 @@ const User = require("../models/user");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  User.find(req.query).then(data => res.json(data));
+  User.find(req.query).populate('tweets').then(data => res.json(data));
+});
+
+// /user/random
+router.get('/random', (req, res) => {
+  // Get the count of all users
+  User.countDocuments().then((count) => {
+    // Get a random entry
+    var random = Math.floor(Math.random() * count);
+
+    // Again query all users but only fetch one offset by our random #
+    User.findOne().skip(random).populate('tweets').then((user) => {
+      res.status(200).json(user);
+    }).catch(error => {
+      res.sendStatus(500);
+    });
+
+  }).catch(error => {
+    res.sendStatus(500);
+  });
+});
+
+// user/follow
+router.patch("/follow", (req, res) => {
+  User.findById(req.body.userId).then((user) => {
+    User.findOne({ email: req.user.email }).then((follower) => {
+      user.followers.push(follower);
+      user.save();
+      follower.following.push(user);
+      follower.save();
+
+      res.status(200).json({ user: user, follower: follower });
+    }).catch(error => {
+      res.sendStatus(500);
+    });
+  }).catch(error => {
+    res.sendStatus(500);
+  })
+});
+
+// user/unfollow
+router.patch("/unfollow", (req, res) => {
+  User.findById(req.body.userId).then((user) => {
+    User.findOne({ email: req.user.email }).then((follower) => {
+      user.followers.pull(follower);
+      user.save();
+      follower.following.pull(user);
+      follower.save();
+
+      res.status(200).json({ user: user, follower: follower });
+    }).catch(error => {
+      res.sendStatus(500);
+    });
+  }).catch(error => {
+    res.sendStatus(500);
+  })
 });
 
 // user/1
 router.get("/:id", (req, res) => {
-  User.findOne({ _id: req.params.id })
+  User.findOne({ _id: req.params.id }).populate('tweets')
     .then(data => res.json(data))
     .catch(error => {
       console.log(error);
@@ -43,5 +98,17 @@ router.post("/", (req, res) => {
       }
     });
 });
+
+// user/1
+router.get("/fulltext", (req, res) => {
+  User.find({ $text: { $search: req.body.searchString } }).populate('tweets')
+    .skip(20)
+    .limit(10).then(data => res.json(data))
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

@@ -1,16 +1,17 @@
 const createToken = require("../lib/auth").createToken;
 const express = require("express");
 const User = require("../models/user");
+const Tweet = require('../models/tweet');
 const faker = require("faker");
-
+faker.locale = 'fr';
 const router = express.Router();
 
 router.post("/login", (req, res) => {
   User.login(req.body.email, req.body.password)
     .then(user => {
-      console.log(user);
       const token = createToken({
-        firstName: user.firstname
+        firstName: user.firstname,
+        email: user.email
       });
 
       res.status(201).send({
@@ -19,8 +20,11 @@ router.post("/login", (req, res) => {
       });
     })
     .catch(error => {
+      console.log(error);
       if (error === 'User not found') {
         res.status(400).send("Oups, il semble que vous n'êtes pas encore inscrits");
+      } else if (error === 'Wrong password') {
+        res.status(400).send("Mot de passe incorrect");
       }
       res.status(400).send("Invalid token");
     });
@@ -39,10 +43,9 @@ router.post("/register", (req, res) => {
   });
 
   user.register().then(data => {
-    console.log(data)
-
     const token = createToken({
-      firstName: data.firstname
+      firstName: data.firstname,
+      email: data.email
     });
 
     res.status(201).send({
@@ -62,21 +65,37 @@ router.post("/register", (req, res) => {
   console.log("Register...");
 });
 
-router.post("/seeds", (req, res) => {
-  console.log('===>');
+router.post("/seeds", async (req, res) => {
+  var i, j, err = false;
 
-  var i, err = false;
+  // users
   for (i = 0; i < 5; i++) {
     let user = new User({
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       email: faker.internet.email(),
       password: 'admin',
+      image: faker.image.avatar(),
       termsAccepted: true,
       termsAcceptedDate: new Date()
     });
 
-    user.save();
+    // tweets
+    for (j = 0; j < 20; j++) {
+      let tweet = new Tweet({
+        text: faker.lorem.sentence(),
+        user: user
+      });
+
+      await tweet.save();
+      user.tweets.push(tweet);
+    }
+
+    try {
+      await user.save();
+    } catch (e) {
+      console.log(e.toString());
+    };
   }
 
   if (err) {
