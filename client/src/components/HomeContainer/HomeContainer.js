@@ -27,23 +27,20 @@ class HomeContainer extends Component {
 
   updateFeeds = (feed) => {
     console.log(feed);
-    // var dataFeeds = [
-    //   feed,
-    //   ...this.state.feeds
-    // ];
+    var dataFeeds = [
+      feed,
+      ...this.state.feeds
+    ];
 
     // console.log(dataFeeds);
 
-    // dataFeeds = dataFeeds.sort((a, b) => {
-    //   return new Date(b.createdAt) - new Date(a.createdAt);
-    // });
+    dataFeeds = dataFeeds.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 
     // console.log(dataFeeds);
     this.setState({
-      feeds: [
-        feed,
-        ...this.state.feeds
-      ]
+      feeds: dataFeeds
     });
 
     console.log(this.state.feeds);
@@ -68,7 +65,7 @@ class HomeContainer extends Component {
               <TweetBox onUpdateFeeds={this.updateFeeds} />
               <hr />
               {(this.state.feeds.length > 0) &&
-                this.state.feeds.map((feed, index) => <Feed key={index} feed={feed} />)}
+                this.state.feeds.map((feed, index) => <Feed key={feed._id} feed={feed} />)}
             </div>
 
             <div className="col-3">
