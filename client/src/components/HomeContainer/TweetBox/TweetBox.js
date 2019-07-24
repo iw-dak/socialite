@@ -51,7 +51,7 @@ class TweetBox extends Component {
       <div className="TweetBox rounded">
         <div className="Wrapper">
           <div className="UserProfil">
-            <img className="rounded-circle" src="https://lorempixel.com/570/400?t=1563270497823" alt={`${user.firstname} ${user.lastname}`} title={`${user.firstname} ${user.lastname}`} />
+            <img className="rounded-circle" src={`${user.image}`} alt={`${user.firstname} ${user.lastname}`} title={`${user.firstname} ${user.lastname}`} />
           </div>
           <form onSubmit={this.handleSubmit}>
             <input type="text" name="tweet" placeholder="Quoi de neuf ?" value={this.state.tweet} onChange={this.handleChange} />

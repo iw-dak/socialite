@@ -6,10 +6,12 @@ import like from "./icons/like.svg";
 import likeFilled from "./icons/like-filled.svg";
 import { formatDate, formatHours } from '../../../helpers';
 import TweetContext from '../../../context/tweets/TweetContext';
+import Comment from './Comment/Comment';
 
 const Feed = ({ feed, updateLikes }) => {
 
   const [liked, setLiked] = useState(false);
+  const [currentFeed, setCurrentFeed] = useState(feed);
   const [likeCount, setLikeCount] = useState(feed.likes.length);
 
   function handleLike(e) {
@@ -22,32 +24,37 @@ const Feed = ({ feed, updateLikes }) => {
     });
   }
 
+  const updateFeed = (feed) => {
+    setCurrentFeed(feed);
+  }
+
   return <div className="Feed rounded mb-2">
     <div className="UserProfil mt-2">
-      <img className="rounded-circle" src={`${feed.user.image}`} alt="User Profil" />
-      <span className="UserName">{feed.user.username}</span>
+      <img className="rounded-circle" src={`${currentFeed.user.image}`} alt="User Profil" />
+      <span className="UserName">{currentFeed.user.username}</span>
     </div>
 
     <div className="ContentWrapper">
       <div className="FeedHeader">
         <span className="UserName">
-          {feed.user.firstname} {feed.user.lastname}
+          {currentFeed.user.firstname} {currentFeed.user.lastname}
         </span>
 
-        <span className="FeedTime">{formatDate(feed.createdAt)} à {formatHours(feed.createdAt)}</span>
+        <span className="FeedTime">{formatDate(currentFeed.createdAt)} à {formatHours(currentFeed.createdAt)}</span>
       </div>
 
-      <div className="FeedContent">{feed.text}</div>
+      <div className="FeedContent">{currentFeed.text}</div>
 
       <div className="FeedMetas">
         <div className="FeedMeta comments">
-          <a href="#comment"><img src={comment} alt="Commenter" title="Commenter" /></a>
-          <span className="FeedCount CommentCount">{feed.comments.length}</span>
+          <a href="#comment" data-toggle="modal" data-target={`#tweetComment-${currentFeed._id}`}><img src={comment} alt="Commenter" title="Commenter" /></a>
+          <span className="FeedCount CommentCount">{currentFeed.comments.length}</span>
+          <Comment feed={currentFeed} onUpdateFeed={updateFeed} />
         </div>
 
         <div className="FeedMeta retweets">
           <a href="#retweet"><img src={retweet} alt="Retweeter" title="Retweeter" /></a>
-          <span className="FeedCount RetweetCount">{feed.retweeters.length}</span>
+          <span className="FeedCount RetweetCount">{currentFeed.retweeters.length}</span>
         </div>
 
         <div className="FeedMeta likes">

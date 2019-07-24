@@ -5,7 +5,7 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  Tweet.find(req.query).sort({ createdAt: 'desc' }).populate('user').then(data => res.json(data))
+  Tweet.find(req.query).sort({ createdAt: 'desc' }).populate('user').populate('comments').then(data => res.json(data))
 });
 
 // /tweets/update-likes
