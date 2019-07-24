@@ -3,7 +3,8 @@ import { createContext } from "react";
 const TweetContext = createContext({
   saveTweet: () => { },
   getAllTweets: () => { },
-  updateLikes: () => { }
+  updateLikes: () => { },
+  sendMessage: () => { }
 });
 
 export default TweetContext;

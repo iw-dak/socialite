@@ -4,6 +4,7 @@ import API from '../../api';
 
 const api = new API()
 api.createEntity({ name: 'tweets' })
+api.createEntity({ name: 'messages' })
 
 class TweetProvider extends Component {
 
@@ -94,6 +95,37 @@ class TweetProvider extends Component {
           resolve(data);
         }).catch((error) => {
           console.log(error);
+          // Error 😨
+          if (error.response) {
+            if (error.response.status === 401) {
+              reject({
+                errorMessage: error.response.data
+              });
+            }
+
+            if (error.response.status === 500) {
+              reject({
+                errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+              });
+            }
+
+          } else if (error.request) {
+            reject({
+              errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+            });
+          }
+        });
+      });
+    },
+    sendMessage: (userTo, message) => {
+      return new Promise((resolve, reject) => {
+        api.endpoints.messages.create({
+          userTo: userTo,
+          message: message
+        }).then(({ data }) => {
+          resolve(data);
+        }).catch((error) => {
+          console.log(error.response);
           // Error 😨
           if (error.response) {
             if (error.response.status === 401) {

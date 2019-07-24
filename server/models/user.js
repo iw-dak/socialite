@@ -28,7 +28,9 @@ const UserSchema = new mongoose.Schema({
   tweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  messagesReceived: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
+  messagesSent: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
 }, { timestamps: true });
 
 UserSchema.pre('save', function (next) {
