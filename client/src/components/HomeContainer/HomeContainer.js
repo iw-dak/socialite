@@ -18,16 +18,22 @@ class HomeContainer extends Component {
 
   componentDidMount() {
     this.props.getAllTweets().then((data) => {
-      console.log(data);
-
       this.setState({
         feeds: data
       })
     });
   }
-  render() {
-    console.log(this.state.feeds);
 
+  updateFeeds = (feed) => {
+    this.setState({
+      feeds: [
+        feed,
+        ...this.state.feeds
+      ]
+    });
+  }
+
+  render() {
     return (
       <div className="HomeContainer">
 
@@ -42,7 +48,7 @@ class HomeContainer extends Component {
         <div className="container-fluid pt-0 pb-4">
           <div className="row">
             <div className="col-9 TweetBoxWrapper">
-              <TweetBox />
+              <TweetBox onUpdateFeeds={this.updateFeeds} />
               <hr />
               {(this.state.feeds.length > 0) &&
                 this.state.feeds.map((feed, index) => <Feed key={index} feed={feed} />)}

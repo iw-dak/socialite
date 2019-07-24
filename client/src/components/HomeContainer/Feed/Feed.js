@@ -24,7 +24,7 @@ const Feed = ({ feed, updateLikes }) => {
 
   return <div className="Feed rounded mb-2">
     <div className="UserProfil mt-2">
-      <img className="rounded-circle" src="https://lorempixel.com/570/400?t=15632704787897823" alt="User Profil" />
+      <img className="rounded-circle" src={`${feed.user.image}`} alt="User Profil" />
       <span className="UserName">{feed.user.username}</span>
     </div>
 

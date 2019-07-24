@@ -33,6 +33,8 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function (next) {
   this.username = '@' + this.firstname.toLowerCase() + '' + this.lastname.toLowerCase();
+  let name = (User.capitalizeFirstLetter(this.firstname) + "+" + User.capitalizeFirstLetter(this.lastname)).replace(/\s/g, '');
+  this.image = "https://ui-avatars.com/api/?name=" + name + "&size=512";
   bcrypt.genSalt(10).then(salt => {
     bcrypt.hash(this.password, salt).then(hash => {
       this.password = hash;
@@ -49,7 +51,7 @@ UserSchema.methods = {
 }
 
 UserSchema.virtual('fullname').get(function () {
-  return this.firstname + ' ' + this.lastname;
+  return User.capitalizeFirstLetter(this.firstname) + ' ' + Usre.capitalizeFirstLetter(this.lastname);
 })
 
 UserSchema.statics = {
@@ -60,6 +62,9 @@ UserSchema.statics = {
         bcrypt.compare(password, `${user.password}`).then(res => res ? resolve(user) : reject('Wrong password'));
       })
     });
+  },
+  capitalizeFirstLetter: function (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
 

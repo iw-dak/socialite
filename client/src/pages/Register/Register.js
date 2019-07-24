@@ -9,11 +9,11 @@ class Register extends Component {
     super();
 
     this.state = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      password: '',
-      passwordConfirmation: '',
+      firstname: 'Kaba',
+      lastname: 'CONDE',
+      email: 'kabaconde@gmail.com',
+      password: 'kabaconde',
+      passwordConfirmation: 'kabaconde',
       errorMessage: false
     };
   }

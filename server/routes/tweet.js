@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   Tweet.find(req.query).sort({ createdAt: 'desc' }).populate('user').then(data => res.json(data))
 });
 
-// user/tweets/update-likes
+// /tweets/update-likes
 router.patch("/update-likes", (req, res) => {
   Tweet.findById(req.body.tweetId).then((tweet) => {
     if (tweet) {
@@ -16,7 +16,6 @@ router.patch("/update-likes", (req, res) => {
         var isInArray = tweet.likes.some(function (like) {
           return like.equals(user._id);
         });
-        console.log("isInArray ==>", isInArray);
 
         if (!isInArray) {
           tweet.likes.push(user);
@@ -40,6 +39,7 @@ router.patch("/update-likes", (req, res) => {
   })
 });
 
+// /tweets
 router.post('/', (req, res) => {
   User.findOne({ email: req.user.email }).then((user) => {
     const tweet = new Tweet({
@@ -54,6 +54,7 @@ router.post('/', (req, res) => {
         res.status(201).send(data)
       })
       .catch(error => {
+        console.log("ERROR ==>", error);
         if (error.name === 'ValidationError') {
           res.status(400).json(error.errors);
         } else {

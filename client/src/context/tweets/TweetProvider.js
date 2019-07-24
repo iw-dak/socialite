@@ -13,8 +13,7 @@ class TweetProvider extends Component {
         api.endpoints.tweets.create({
           text: tweet
         }).then(({ data }) => {
-          console.log(data);
-          resolve();
+          resolve(data);
         }).catch((error) => {
           console.log(error);
           // Error 😨

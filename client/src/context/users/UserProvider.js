@@ -107,6 +107,103 @@ class UserProvider extends Component {
           }
         });
       });
+    },
+    getRandomUser: () => {
+      return new Promise((resolve, reject) => {
+        api.endpoints.users.getSpecific({ id: 'random' }).then(({ data }) => {
+          resolve(data);
+        }).catch((error) => {
+          // Error 😨
+          if (error.response) {
+            if (error.response.status === 422) {
+              reject({
+                errorMessage: error.response.data
+              });
+            }
+
+            if (error.response.status === 500) {
+              reject({
+                errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+              });
+            }
+
+            if (error.response.status === 400) {
+              reject({
+                errorMessage: error.response.data
+              });
+            }
+          } else if (error.request) {
+            reject({
+              errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+            });
+          } else {
+            // Something happened in setting up the request and triggered an Error
+            reject({
+              errorMessage: error.message
+            });
+          }
+        });
+      });
+    },
+    followUser: (userId) => {
+      return new Promise((resolve, reject) => {
+        api.endpoints.users.patch({ id: 'follow' }, {
+          userId: userId
+        }).then(({ data }) => {
+          resolve(data);
+        }).catch((error) => {
+          console.log(error);
+          // Error 😨
+          if (error.response) {
+            if (error.response.status === 401) {
+              reject({
+                errorMessage: error.response.data
+              });
+            }
+
+            if (error.response.status === 500) {
+              reject({
+                errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+              });
+            }
+
+          } else if (error.request) {
+            reject({
+              errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+            });
+          }
+        });
+      });
+    },
+    unFollowUser: (userId) => {
+      return new Promise((resolve, reject) => {
+        api.endpoints.users.patch({ id: 'unfollow' }, {
+          userId: userId
+        }).then(({ data }) => {
+          resolve(data);
+        }).catch((error) => {
+          console.log(error);
+          // Error 😨
+          if (error.response) {
+            if (error.response.status === 401) {
+              reject({
+                errorMessage: error.response.data
+              });
+            }
+
+            if (error.response.status === 500) {
+              reject({
+                errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+              });
+            }
+
+          } else if (error.request) {
+            reject({
+              errorMessage: "Une erreur inattendue s'est produite, réessayez ou contactez un administrateur"
+            });
+          }
+        });
+      });
     }
   }
 

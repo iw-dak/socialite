@@ -31,13 +31,15 @@ class TweetBox extends Component {
       return;
     }
 
-    this.props.saveTweet(this.state.tweet).then(() => {
+    this.props.saveTweet(this.state.tweet).then((tweet) => {
       this.setState({
         tweet: ''
-      });
+      })
 
+      this.props.onUpdateFeeds(tweet);
       alert("✅ Votre tweet a été posté");
     }).catch(response => {
+      console.log("===>", response)
       alert(response.errorMessage);
     });
   }
@@ -62,7 +64,7 @@ class TweetBox extends Component {
 
 export default React.forwardRef((props, ref) => (
   <TweetContext.Consumer>
-    {({ saveTweet, getAllTweets }) => <TweetBox
+    {({ saveTweet }) => <TweetBox
       {...props}
       saveTweet={saveTweet}
       ref={ref}
